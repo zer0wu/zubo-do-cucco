@@ -72,8 +72,8 @@ bool SerialCommunicator::receiveData(uint8_t& receivedData) {
     return false;
 }
 
-void SerialCommunicator::sendSNC() {
+void SerialCommunicator::sendSNC(uint8_t i) {
 
-    uint8_t confirmationData = 0xD3;  // Adjust as needed
-    WriteFile(hCom, &confirmationData, sizeof(confirmationData), NULL, NULL);
+    uint8_t SNC[2] = {0xD3, 0x80+i};  // Adjust as needed
+    WriteFile(hCom, SNC, sizeof(SNC), NULL, NULL);
 }
