@@ -72,8 +72,25 @@ bool SerialCommunicator::receiveData(uint8_t& receivedData) {
     return false;
 }
 
+bool SerialCommunicator::receiveData2(uint8_t& receivedData2) {
+    // Code to receive data from the serial port
+    DWORD bytesRead;
+
+    if (ReadFile(hCom, &receivedData2, sizeof(receivedData2), &bytesRead, NULL)) {
+        return bytesRead == sizeof(receivedData2);
+    }
+
+    return false;
+}
+
 void SerialCommunicator::sendSNC(uint8_t i) {
 
     uint8_t SNC[2] = {0xD3, 0x80+i};  // Adjust as needed
     WriteFile(hCom, SNC, sizeof(SNC), NULL, NULL);
 }
+
+/*void SerialCommunicator::ativa(uint8_t i) {
+
+    uint8_t ATX[2] = {0xD8, 0x80+i};  // Adjust as needed
+    WriteFile(hCom, ATX, sizeof(ATX), NULL, NULL);
+}*/
