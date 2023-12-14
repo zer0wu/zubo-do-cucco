@@ -1,69 +1,34 @@
-#include <iostream>
-#include "SerialCommunicator.h"
-#include "windows.h"
-#include "Cubo.h"
-#include <iomanip>
-#include <cstdlib>
+#ifndef CUBO_H
+#define CUBO_H
 
-using namespace std;
+#include "stdint.h"
 
-int main() {
-    const char* portName = "COM5";  // Change to your port name
-    int baudRate = 115200;  // Adjust as needed
-    Cubo cubo;
-    SerialCommunicator communicator(portName, baudRate);
+class Cubo
+{
+public:
+    Cubo();
+    virtual ~Cubo();
+    uint8_t matrix_led[8][8][8];    //matriz que define o estado de cada LED
+void resetCubo();           //zera o valor de todos os LEDs
 
-    if (communicator.openPort()) {
-        cout << " Porta serial aberta ." << std::endl;
-     uint8_t i = 0;
-communicator.sendSNC(i);
-        cout << "SNC enviado." << endl;
-        // Test sending data
+    void ledOn(int x, int y, int z);  //liga um led especifico da matriz
 
-        // Test receiving data
- uint8_t receivedData;
-        if (communicator.receiveData(receivedData)) {
-            cout << "Retorno do SNC: 0x" << std::hex << static_cast<int>(receivedData) << endl;
-        } else {
-            cerr << "Failed to receive data." << endl;
-        }
+    void ledOff(int x, int y, int z); //desliga um led especifico da matriz
 
+    void setCubo();
 
-        uint8_t matrixToSend[8][8][8];
-        for (int x = 0; x < 8; ++x) {
-            for (int y = 0; y < 8; ++y) {
-                for (int z = 0; z < 8; ++z) {
-                    matrixToSend[x][y][z] = cubo.Getmatrizdata(x, y, z);
-                }
-            }
-        }
+    void criaParticula( int x, int y);
 
-        if (communicator.sendData(matrixToSend)) {
-            cout << "Dados enviados." << endl;
-        } else {
-            cerr << "Falha no envio de dados" << endl;
-        }
-
-
- uint8_t receivedData2;
-        if (communicator.receiveData2(receivedData2)) {
-            cout << "Retorno da matriz: 0x" << std::hex << static_cast<int>(receivedData2) << endl;
-        } else {
-            cerr << "Falha no envio nos cubos" << endl;
-        }
-
-
-        communicator.closePort();
-        cout << "Porta Serial fechada" << endl;
-    } else {
-        cerr << "Falha em abrir na porta serial " << endl;
-    }
-
-
-   // communicator.ativa(i);
-   // cout << "cubo ativado" << endl;
+    void caiParticula ();
+    uint8_t Getmatrizdata(int x, int y, int z) const;
 
 
 
-    return 0;
-}
+protected:
+
+
+
+private:
+};
+
+#endif // CUBO_H
