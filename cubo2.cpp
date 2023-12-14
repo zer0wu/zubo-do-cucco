@@ -23,8 +23,6 @@ void Cubo::resetCubo() {
 }
 
 
-
-
 void Cubo::ledOn(int x, int y, int z) {
 matrix_led[x][y][z] = 1;
 
@@ -137,3 +135,12 @@ for (int x = 0; x < 8; x++) {
         }
     }
 }
+uint8_t Cubo::Getmatrizdata(int x, int y, int z) const {
+    if (x >= 0 && x < 8 && y >= 0 && y < 8 && z >= 0 && z < 8) {
+        return matrix_led[x][y][z];
+    } else {
+        // Tratamento de erro ou valor padrão, você pode ajustar conforme necessário
+        return 0;
+    }
+}
+
