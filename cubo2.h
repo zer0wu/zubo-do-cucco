@@ -20,6 +20,8 @@ void resetCubo();           //zera o valor de todos os LEDs
     void criaParticula( int x, int y);
 
     void caiParticula ();
+    uint8_t Getmatrizdata(int x, int y, int z) const;
+
 
 
 protected:
