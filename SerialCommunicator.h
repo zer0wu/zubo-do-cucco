@@ -11,7 +11,7 @@ public:
     void closePort();
     bool sendData(const uint8_t matrix[8][8][8]);
     bool receiveData(uint8_t& receivedData);
-    void sendSNC();
+    void sendSNC(uint8_t i);
 
 private:
     HANDLE hCom;
